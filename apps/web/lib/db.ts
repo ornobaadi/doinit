@@ -7,7 +7,13 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/doinit?schema=public"
-const pool = new pg.Pool({ connectionString })
+const pool = new pg.Pool({
+  connectionString,
+  ssl: {
+    rejectUnauthorized: false,
+    checkServerIdentity: () => undefined,
+  },
+})
 const adapter = new PrismaPg(pool)
 
 export const db =

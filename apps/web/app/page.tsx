@@ -78,6 +78,7 @@ export default function Page() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   // Add Task Form State
   const [isAddOpen, setIsAddOpen] = useState(false)
@@ -109,6 +110,7 @@ export default function Page() {
   }
 
   useEffect(() => {
+    setMounted(true)
     fetchTasks()
   }, [])
 
@@ -274,12 +276,16 @@ export default function Page() {
             size="icon"
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             className="rounded-full size-9 hover:bg-muted"
-            title="Toggle theme (Press 'd')"
+            title="Toggle theme"
           >
-            {resolvedTheme === "dark" ? (
-              <Sun className="size-[1.1rem]" />
+            {mounted ? (
+              resolvedTheme === "dark" ? (
+                <Sun className="size-[1.1rem]" />
+              ) : (
+                <Moon className="size-[1.1rem]" />
+              )
             ) : (
-              <Moon className="size-[1.1rem]" />
+              <span className="size-[1.1rem]" />
             )}
           </Button>
 

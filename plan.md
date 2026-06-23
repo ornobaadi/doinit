@@ -15,8 +15,8 @@ This plan describes the step-by-step approach to build the Task Manager applicat
 
 ## Open Questions
 
-> [!IMPORTANT]
-> **Supabase / DB Setup:** Do you have a Supabase database connection string (`DATABASE_URL`) ready to use in the `.env` file, or should we set up a local SQLite configuration first so you can test it locally without external credentials, and swap to Supabase later?
+> [!NOTE]
+> **Supabase / DB Setup:** Resolved. The user provided the client API keys and endpoint. We added placeholders for the PostgreSQL credentials in `apps/web/.env` and included manual SQL initialization scripts in the README.
 
 ---
 

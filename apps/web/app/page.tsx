@@ -82,6 +82,67 @@ const COLUMNS = [
   },
 ]
 
+interface EmptyStateProps {
+  columnId: string
+  onAdd: () => void
+}
+
+function EmptyState({ columnId, onAdd }: EmptyStateProps) {
+  let illustration: React.ReactNode
+  let title = ""
+  let description = ""
+  let actionLabel = ""
+
+  if (columnId === "TODO") {
+    title = "Ready to plan?"
+    description = "Create tasks to organize your workflow and track your goals."
+    actionLabel = "Add a task"
+    illustration = (
+      <svg className="size-12 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    )
+  } else if (columnId === "IN_PROGRESS") {
+    title = "Focus zone"
+    description = "Move tasks here when you start working on them."
+    actionLabel = "Start a task"
+    illustration = (
+      <svg className="size-12 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    )
+  } else {
+    title = "Celebrate wins"
+    description = "Drag completed tasks here to check them off your list."
+    actionLabel = "Complete a task"
+    illustration = (
+      <svg className="size-12 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    )
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center py-8 px-4 text-center border border-dashed border-border/50 rounded-xl bg-background/20 backdrop-blur-xs gap-3 select-none my-1.5 group transition-all hover:bg-background/40 hover:border-border/80">
+      <div className="flex items-center justify-center p-2.5 rounded-xl bg-muted/60 border border-border/40 shadow-xs">
+        {illustration}
+      </div>
+      <div className="space-y-1">
+        <h4 className="font-bold text-xs text-foreground tracking-tight">{title}</h4>
+        <p className="text-[10px] text-muted-foreground leading-relaxed max-w-[180px] mx-auto">{description}</p>
+      </div>
+      <button
+        type="button"
+        onClick={onAdd}
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/80 bg-background hover:bg-muted text-[10px] font-bold text-foreground transition-all active:scale-95 cursor-pointer shadow-xs"
+      >
+        <Plus className="size-3" weight="bold" />
+        {actionLabel}
+      </button>
+    </div>
+  )
+}
+
 export default function Page() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
@@ -480,8 +541,16 @@ export default function Page() {
                   const colConfig = COLUMNS.find(c => c.id === column.id)!
                   const count = getColCount(column.id)
 
-                  // Add Task button rendered inside the scroll area
-                  const addTaskFooter = (
+                  // Add Task button or Empty State graphic
+                  const addTaskFooter = count === 0 ? (
+                    <EmptyState
+                      columnId={column.id}
+                      onAdd={() => {
+                        setAddStatus(column.id as any)
+                        setIsAddOpen(true)
+                      }}
+                    />
+                  ) : (
                     <button
                       type="button"
                       onClick={() => {

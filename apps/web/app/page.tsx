@@ -100,7 +100,7 @@ function EmptyState({ columnId, onAdd }: EmptyStateProps) {
     description = "Create tasks to organize your workflow and track your goals."
     actionLabel = "Add a task"
     illustration = (
-      <svg className="size-12 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg className="size-14 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
     )
@@ -109,7 +109,7 @@ function EmptyState({ columnId, onAdd }: EmptyStateProps) {
     description = "Move tasks here when you start working on them."
     actionLabel = "Start a task"
     illustration = (
-      <svg className="size-12 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg className="size-14 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     )
@@ -118,25 +118,25 @@ function EmptyState({ columnId, onAdd }: EmptyStateProps) {
     description = "Drag completed tasks here to check them off your list."
     actionLabel = "Complete a task"
     illustration = (
-      <svg className="size-12 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg className="size-14 text-muted-foreground/35 transition-transform group-hover:scale-105" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     )
   }
 
   return (
-    <div className="flex flex-col items-center justify-center py-8 px-4 text-center border border-dashed border-border/50 rounded-xl bg-background/20 backdrop-blur-xs gap-3 select-none my-1.5 group transition-all hover:bg-background/40 hover:border-border/80">
-      <div className="flex items-center justify-center p-2.5 rounded-xl bg-muted/60 border border-border/40 shadow-xs">
+    <div className="flex flex-col items-center justify-center py-10 px-5 text-center border border-dashed border-border/50 rounded-xl bg-background/20 backdrop-blur-xs gap-3 select-none my-1.5 group transition-all hover:bg-background/40 hover:border-border/80">
+      <div className="flex items-center justify-center p-3 rounded-xl bg-muted/60 border border-border/40 shadow-xs">
         {illustration}
       </div>
       <div className="space-y-1">
-        <h4 className="font-bold text-xs text-foreground tracking-tight">{title}</h4>
-        <p className="text-[10px] text-muted-foreground leading-relaxed max-w-[180px] mx-auto">{description}</p>
+        <h4 className="font-bold text-sm text-foreground tracking-tight">{title}</h4>
+        <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px] mx-auto">{description}</p>
       </div>
       <button
         type="button"
         onClick={onAdd}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/80 bg-background hover:bg-muted text-[10px] font-bold text-foreground transition-all active:scale-95 cursor-pointer shadow-xs"
+        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-border/80 bg-background hover:bg-muted text-xs font-bold text-foreground transition-all active:scale-95 cursor-pointer shadow-xs"
       >
         <Plus className="size-3" weight="bold" />
         {actionLabel}
@@ -410,7 +410,7 @@ export default function Page() {
 
         <div className="flex items-center gap-2.5">
           {/* Task counters */}
-          <div className="hidden md:flex items-center gap-3 text-[11px] font-semibold text-muted-foreground mr-1 bg-muted/60 border border-border px-3 py-1.5 rounded-lg">
+          <div className="hidden md:flex items-center gap-3 text-xs font-semibold text-muted-foreground mr-1 bg-muted/60 border border-border px-3.5 py-2 rounded-lg">
             <span>Todo <span className="text-foreground font-bold">{getColCount("TODO")}</span></span>
             <span className="size-1 rounded-full bg-border/80" />
             <span>Doing <span className="text-foreground font-bold">{getColCount("IN_PROGRESS")}</span></span>
@@ -443,7 +443,7 @@ export default function Page() {
               setAddStatus("TODO")
               setIsAddOpen(true)
             }}
-            className="rounded-lg gap-1.5 px-3.5 h-8 font-semibold text-xs transition-all active:scale-95 cursor-pointer shadow-sm"
+            className="rounded-lg gap-1.5 px-4 h-9 font-semibold text-xs transition-all active:scale-95 cursor-pointer shadow-sm"
           >
             <Plus className="size-3.5" weight="bold" /> New Task
           </Button>
@@ -575,9 +575,9 @@ export default function Page() {
                         setAddStatus(column.id as any)
                         setIsAddOpen(true)
                       }}
-                      className="flex w-full items-center gap-1.5 rounded-lg border border-dashed border-border/70 hover:border-primary/50 hover:bg-primary/5 px-3 py-2 text-xs font-semibold text-muted-foreground hover:text-primary transition-all active:scale-[0.98] cursor-pointer mt-1"
+                      className="flex w-full items-center gap-1.5 rounded-lg border border-dashed border-border/70 hover:border-primary/50 hover:bg-primary/5 px-3.5 py-2.5 text-[12.5px] font-semibold text-muted-foreground hover:text-primary transition-all active:scale-[0.98] cursor-pointer mt-1"
                     >
-                      <Plus className="size-3.5 shrink-0" weight="bold" /> Add task
+                      <Plus className="size-4 shrink-0" weight="bold" /> Add task
                     </button>
                   )
 
@@ -587,13 +587,13 @@ export default function Page() {
                       className="h-full bg-muted border border-border shadow-sm flex flex-col rounded-xl snap-center shrink-0 w-[calc(100vw-2rem)] md:w-[calc(50vw-2rem)] lg:w-full"
                     >
                       {/* Column Header */}
-                      <KanbanHeader className="flex justify-between items-center py-3 border-b border-border bg-muted/90 px-3.5 select-none rounded-t-xl">
+                      <KanbanHeader className="flex justify-between items-center py-3.5 border-b border-border bg-muted/90 px-4 select-none rounded-t-xl">
                         <div className="flex items-center gap-2">
                           <span className={`size-2 rounded-full ${colConfig.color} shrink-0`} />
-                          <span className="font-bold text-foreground text-[13px] tracking-tight">
+                          <span className="font-bold text-foreground text-sm tracking-tight">
                             {column.name}
                           </span>
-                          <Badge className="rounded-full border border-border font-bold px-1.5 py-0 text-[10px] font-mono bg-background text-muted-foreground shadow-none">
+                          <Badge className="rounded-full border border-border font-bold px-2 py-0.5 text-[11px] font-mono bg-background text-muted-foreground shadow-none">
                             {count}
                           </Badge>
                         </div>
@@ -604,10 +604,10 @@ export default function Page() {
                             setAddStatus(column.id as any)
                             setIsAddOpen(true)
                           }}
-                          className="text-muted-foreground hover:text-foreground p-1 rounded-md hover:bg-muted transition-all flex items-center justify-center size-6 cursor-pointer"
+                          className="text-muted-foreground hover:text-foreground p-1 rounded-md hover:bg-muted transition-all flex items-center justify-center size-7 cursor-pointer"
                           title={`Add task to ${column.name}`}
                         >
-                          <Plus className="size-3.5" weight="bold" />
+                          <Plus className="size-4" weight="bold" />
                         </button>
                       </KanbanHeader>
 
@@ -643,7 +643,7 @@ export default function Page() {
                                       if (e.key === "Escape") cancelEdit()
                                     }}
                                     placeholder="Task title"
-                                    className="w-full rounded-md border border-primary/60 bg-background px-2.5 py-1.5 text-[13px] font-semibold focus:outline-none focus:ring-2 focus:ring-primary/30"
+                                    className="w-full rounded-md border border-primary/60 bg-background px-2.5 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary/30"
                                   />
                                   <textarea
                                     ref={descInputRef}
@@ -654,13 +654,13 @@ export default function Page() {
                                     }}
                                     placeholder="Description (optional)"
                                     rows={2}
-                                    className="w-full rounded-md border border-border bg-background px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/60 resize-none text-muted-foreground"
+                                    className="w-full rounded-md border border-border bg-background px-2.5 py-2 text-[12.5px] focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/60 resize-none text-muted-foreground"
                                   />
                                   <div className="flex items-center justify-end gap-1.5 pt-0.5">
                                     <button
                                       type="button"
                                       onClick={cancelEdit}
-                                      className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer"
+                                      className="flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer"
                                     >
                                       <XIcon className="size-3" weight="bold" /> Cancel
                                     </button>
@@ -668,7 +668,7 @@ export default function Page() {
                                       type="button"
                                       onClick={saveEdit}
                                       disabled={savingEdit}
-                                      className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all cursor-pointer disabled:opacity-60"
+                                      className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-all cursor-pointer disabled:opacity-60"
                                     >
                                       <Check className="size-3" weight="bold" /> Save
                                     </button>
@@ -681,7 +681,7 @@ export default function Page() {
                                   <div className="flex items-start justify-between gap-2">
                                     <h3
                                       onClick={() => task && startEdit(task)}
-                                      className="font-semibold text-[13px] leading-snug text-foreground cursor-text hover:text-primary transition-colors flex-1 min-w-0"
+                                      className="font-semibold text-sm tracking-tight leading-snug text-foreground cursor-text hover:text-primary transition-colors flex-1 min-w-0"
                                       title="Click to edit"
                                     >
                                       {item.name}
@@ -704,7 +704,7 @@ export default function Page() {
                                   {item.description ? (
                                     <p
                                       onClick={() => task && startEdit(task)}
-                                      className="text-[11.5px] text-muted-foreground leading-relaxed line-clamp-2 cursor-text hover:text-foreground/70 transition-colors"
+                                      className="text-[12.5px] text-muted-foreground leading-relaxed line-clamp-2 cursor-text hover:text-foreground/70 transition-colors"
                                       title="Click to edit"
                                     >
                                       {item.description as string}
@@ -713,7 +713,7 @@ export default function Page() {
                                     <button
                                       type="button"
                                       onClick={() => task && startEdit(task)}
-                                      className="text-[11px] text-muted-foreground/40 hover:text-muted-foreground text-left transition-colors cursor-text"
+                                      className="text-[12px] text-muted-foreground/40 hover:text-muted-foreground text-left transition-colors cursor-text"
                                     >
                                       + Add description
                                     </button>
@@ -721,7 +721,7 @@ export default function Page() {
 
                                   {/* Footer: date + status */}
                                   <div className="flex items-center justify-between pt-2 border-t border-border/60">
-                                    <div className="flex items-center gap-1 text-[10.5px] text-muted-foreground">
+                                    <div className="flex items-center gap-1 text-[11.5px] text-muted-foreground">
                                       <CalendarBlank className="size-3 shrink-0" />
                                       <span className="font-mono">{formatDate(item.createdAt as string)}</span>
                                     </div>
@@ -760,13 +760,13 @@ export default function Page() {
                                         value={item.column} 
                                         onValueChange={(val: any) => handleStatusChange(item.id, val)}
                                       >
-                                        <SelectTrigger className="h-6 text-[10px] px-2 py-0 border border-border/60 bg-background hover:bg-muted rounded-md w-[7.5rem] shadow-none focus:ring-0 font-semibold">
+                                        <SelectTrigger className="h-7 text-[11px] px-2.5 py-0 border border-border/60 bg-background hover:bg-muted rounded-md w-[8rem] shadow-none focus:ring-0 font-semibold">
                                           <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-xl border border-border bg-card">
-                                          <SelectItem value="TODO" className="rounded-lg text-[11px]">To Do</SelectItem>
-                                          <SelectItem value="IN_PROGRESS" className="rounded-lg text-[11px]">In Progress</SelectItem>
-                                          <SelectItem value="DONE" className="rounded-lg text-[11px]">Done</SelectItem>
+                                          <SelectItem value="TODO" className="rounded-lg text-[12px]">To Do</SelectItem>
+                                          <SelectItem value="IN_PROGRESS" className="rounded-lg text-[12px]">In Progress</SelectItem>
+                                          <SelectItem value="DONE" className="rounded-lg text-[12px]">Done</SelectItem>
                                         </SelectContent>
                                       </Select>
                                     </div>

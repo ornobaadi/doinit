@@ -1,4 +1,4 @@
-# doinit.
+# [doinit.](https://doinit.vercel.app/)
 
 A premium, modern Kanban-style task manager built as a personal playground to experiment with fluid drag-and-drop interfaces, custom styling, and modern full-stack patterns. The interface features a tailored dark/light aesthetic (Obsidian Midnight and Ice White) built on top of a custom, design-token-driven color palette.
 

@@ -131,14 +131,14 @@ function EmptyState({ columnId, onAdd }: EmptyStateProps) {
       </div>
       <div className="space-y-1">
         <h4 className="font-bold text-sm text-foreground tracking-tight">{title}</h4>
-        <p className="text-xs text-muted-foreground leading-relaxed max-w-[200px] mx-auto">{description}</p>
+        <p className="text-[13px] text-muted-foreground leading-relaxed max-w-[200px] mx-auto">{description}</p>
       </div>
       <button
         type="button"
         onClick={onAdd}
-        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-border/80 bg-background hover:bg-muted text-xs font-bold text-foreground transition-all active:scale-95 cursor-pointer shadow-xs"
+        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border border-border/80 bg-background hover:bg-muted text-[13px] font-bold text-foreground transition-all active:scale-95 cursor-pointer shadow-xs"
       >
-        <Plus className="size-3" weight="bold" />
+        <Plus className="size-3.5" weight="bold" />
         {actionLabel}
       </button>
     </div>
@@ -398,11 +398,11 @@ export default function Page() {
       {/* Header */}
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur-md px-5 py-3 md:px-10 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-black text-base tracking-tighter shadow-sm">
+          <div className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground font-black text-base tracking-tighter shadow-sm">
             d
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="font-extrabold text-lg tracking-tight">
+            <span className="font-extrabold text-xl tracking-tight">
               doinit<span className="text-primary font-black">.</span>
             </span>
           </div>
@@ -410,7 +410,7 @@ export default function Page() {
 
         <div className="flex items-center gap-2.5">
           {/* Task counters */}
-          <div className="hidden md:flex items-center gap-3 text-xs font-semibold text-muted-foreground mr-1 bg-muted/60 border border-border px-3.5 py-2 rounded-lg">
+          <div className="hidden md:flex items-center gap-3 text-[13px] font-semibold text-muted-foreground mr-1 bg-muted/60 border border-border px-3.5 py-2 rounded-lg">
             <span>Todo <span className="text-foreground font-bold">{getColCount("TODO")}</span></span>
             <span className="size-1 rounded-full bg-border/80" />
             <span>Doing <span className="text-foreground font-bold">{getColCount("IN_PROGRESS")}</span></span>
@@ -423,14 +423,14 @@ export default function Page() {
             variant="ghost"
             size="icon"
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            className="rounded-lg size-8 hover:bg-muted border border-border/50 transition-all active:scale-95"
+            className="rounded-lg size-9 hover:bg-muted border border-border/50 transition-all active:scale-95"
             title="Toggle theme"
           >
             {mounted ? (
               resolvedTheme === "dark" ? (
-                <Sun className="size-4 text-amber-400" />
+                <Sun className="size-4.5 text-amber-400" />
               ) : (
-                <Moon className="size-4 text-violet-500" />
+                <Moon className="size-4.5 text-violet-500" />
               )
             ) : (
               <span className="size-4" />
@@ -443,23 +443,29 @@ export default function Page() {
               setAddStatus("TODO")
               setIsAddOpen(true)
             }}
-            className="rounded-lg gap-1.5 px-4 h-9 font-semibold text-xs transition-all active:scale-95 cursor-pointer shadow-sm"
+            className="rounded-lg gap-1.5 px-4 h-9 font-semibold text-[13px] transition-all active:scale-95 cursor-pointer shadow-sm"
           >
-            <Plus className="size-3.5" weight="bold" /> New Task
+            <Plus className="size-4" weight="bold" /> New Task
           </Button>
         </div>
       </header>
 
       {/* Add Task Dialog */}
       <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-        <DialogContent className="max-w-md rounded-2xl p-6 border shadow-2xl bg-card border-border">
-          <form onSubmit={handleAddTask} className="space-y-4">
-            <DialogHeader>
+        <DialogContent className="max-w-md p-0 border shadow-2xl bg-card border-border overflow-hidden">
+          <form onSubmit={handleAddTask}>
+            {/* Dialog Header */}
+            <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-border">
               <DialogTitle className="text-lg font-bold tracking-tight">New Task</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-3.5 py-1">
-              <div className="space-y-1.5">
-                <label htmlFor="add-title" className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Press Enter to save</span>
+              </div>
+            </div>
+
+            {/* Form fields */}
+            <div className="px-5 py-4 space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="add-title" className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">
                   Title <span className="text-destructive">*</span>
                 </label>
                 <input
@@ -467,53 +473,66 @@ export default function Page() {
                   placeholder="What needs to be done?"
                   value={addTitle}
                   onChange={e => setAddTitle(e.target.value)}
-                  className="flex h-9 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary placeholder:text-muted-foreground/50"
+                  className="flex h-11 w-full rounded-xl border border-border bg-background px-4 py-2 text-[15px] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary placeholder:text-muted-foreground/40 font-medium"
                   required
                   autoFocus
                 />
               </div>
-              <div className="space-y-1.5">
-                <label htmlFor="add-description" className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                  Description
+              <div className="space-y-2">
+                <label htmlFor="add-description" className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">
+                  Description <span className="text-muted-foreground/50 normal-case font-normal tracking-normal">(optional)</span>
                 </label>
                 <textarea
                   id="add-description"
-                  placeholder="Add details (optional)..."
+                  placeholder="Add more context or details..."
                   value={addDescription}
                   onChange={e => setAddDescription(e.target.value)}
                   rows={3}
-                  className="flex w-full rounded-lg border border-border bg-background px-3 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary placeholder:text-muted-foreground/50 resize-none"
+                  className="flex w-full rounded-xl border border-border bg-background px-4 py-3 text-[15px] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary placeholder:text-muted-foreground/40 resize-none leading-relaxed"
                 />
               </div>
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                  Column
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest">
+                  Start in column
                 </label>
-                <Select value={addStatus} onValueChange={(val: any) => setAddStatus(val)}>
-                  <SelectTrigger className="w-full h-9 rounded-lg border border-border bg-background px-3">
-                    <SelectValue placeholder="Select column" />
-                  </SelectTrigger>
-                  <SelectContent className="rounded-xl border border-border bg-card">
-                    <SelectItem value="TODO" className="rounded-lg">To Do</SelectItem>
-                    <SelectItem value="IN_PROGRESS" className="rounded-lg">In Progress</SelectItem>
-                    <SelectItem value="DONE" className="rounded-lg">Done</SelectItem>
-                  </SelectContent>
-                </Select>
+                {/* Column picker chips */}
+                <div className="flex gap-2">
+                  {(["TODO", "IN_PROGRESS", "DONE"] as const).map((status) => {
+                    const labels: Record<string, string> = { TODO: "To Do", IN_PROGRESS: "In Progress", DONE: "Done" }
+                    const colors: Record<string, string> = {
+                      TODO: addStatus === status ? "bg-slate-500 text-white border-slate-500" : "border-border text-muted-foreground hover:border-slate-400 hover:text-slate-600 dark:hover:text-slate-300",
+                      IN_PROGRESS: addStatus === status ? "bg-amber-500 text-white border-amber-500" : "border-border text-muted-foreground hover:border-amber-400 hover:text-amber-600 dark:hover:text-amber-300",
+                      DONE: addStatus === status ? "bg-emerald-500 text-white border-emerald-500" : "border-border text-muted-foreground hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-300",
+                    }
+                    return (
+                      <button
+                        key={status}
+                        type="button"
+                        onClick={() => setAddStatus(status)}
+                        className={`flex-1 py-2.5 rounded-xl border text-[13px] font-semibold transition-all active:scale-95 cursor-pointer ${colors[status]}`}
+                      >
+                        {labels[status]}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
             </div>
-            <DialogFooter className="pt-1 gap-2">
+
+            {/* Footer actions */}
+            <div className="flex gap-2 px-5 pb-5 pt-2">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setIsAddOpen(false)}
-                className="w-full sm:w-auto rounded-lg h-9"
+                className="flex-1 rounded-xl h-11 text-[14px] font-semibold"
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={submitting} className="w-full sm:w-auto min-w-[90px] rounded-lg h-9 shadow-sm">
+              <Button type="submit" disabled={submitting} className="flex-1 rounded-xl h-11 text-[14px] font-semibold shadow-sm">
                 {submitting ? "Creating..." : "Create Task"}
               </Button>
-            </DialogFooter>
+            </div>
           </form>
         </DialogContent>
       </Dialog>
@@ -589,11 +608,11 @@ export default function Page() {
                       {/* Column Header */}
                       <KanbanHeader className="flex justify-between items-center py-3.5 border-b border-border bg-muted/90 px-4 select-none rounded-t-xl">
                         <div className="flex items-center gap-2">
-                          <span className={`size-2 rounded-full ${colConfig.color} shrink-0`} />
-                          <span className="font-bold text-foreground text-sm tracking-tight">
+                          <span className={`size-2.5 rounded-full ${colConfig.color} shrink-0`} />
+                          <span className="font-bold text-foreground text-[14px] tracking-tight">
                             {column.name}
                           </span>
-                          <Badge className="rounded-full border border-border font-bold px-2 py-0.5 text-[11px] font-mono bg-background text-muted-foreground shadow-none">
+                          <Badge className="rounded-full border border-border font-bold px-2 py-0.5 text-[12px] font-mono bg-background text-muted-foreground shadow-none">
                             {count}
                           </Badge>
                         </div>
@@ -681,7 +700,7 @@ export default function Page() {
                                   <div className="flex items-start justify-between gap-2">
                                     <h3
                                       onClick={() => task && startEdit(task)}
-                                      className="font-semibold text-sm tracking-tight leading-snug text-foreground cursor-text hover:text-primary transition-colors flex-1 min-w-0"
+                                      className="font-semibold text-[14px] tracking-tight leading-snug text-foreground cursor-text hover:text-primary transition-colors flex-1 min-w-0"
                                       title="Click to edit"
                                     >
                                       {item.name}
@@ -704,7 +723,7 @@ export default function Page() {
                                   {item.description ? (
                                     <p
                                       onClick={() => task && startEdit(task)}
-                                      className="text-[12.5px] text-muted-foreground leading-relaxed line-clamp-2 cursor-text hover:text-foreground/70 transition-colors"
+                                      className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2 cursor-text hover:text-foreground/70 transition-colors"
                                       title="Click to edit"
                                     >
                                       {item.description as string}
@@ -713,7 +732,7 @@ export default function Page() {
                                     <button
                                       type="button"
                                       onClick={() => task && startEdit(task)}
-                                      className="text-[12px] text-muted-foreground/40 hover:text-muted-foreground text-left transition-colors cursor-text"
+                                      className="text-[13px] text-muted-foreground/40 hover:text-muted-foreground text-left transition-colors cursor-text"
                                     >
                                       + Add description
                                     </button>
@@ -721,8 +740,8 @@ export default function Page() {
 
                                   {/* Footer: date + status */}
                                   <div className="flex items-center justify-between pt-2 border-t border-border/60">
-                                    <div className="flex items-center gap-1 text-[11.5px] text-muted-foreground">
-                                      <CalendarBlank className="size-3 shrink-0" />
+                                    <div className="flex items-center gap-1 text-[12px] text-muted-foreground">
+                                      <CalendarBlank className="size-3.5 shrink-0" />
                                       <span className="font-mono">{formatDate(item.createdAt as string)}</span>
                                     </div>
                                     <div className="flex items-center gap-1.5 shrink-0" onClick={e => e.stopPropagation()}>
@@ -760,13 +779,13 @@ export default function Page() {
                                         value={item.column} 
                                         onValueChange={(val: any) => handleStatusChange(item.id, val)}
                                       >
-                                        <SelectTrigger className="h-7 text-[11px] px-2.5 py-0 border border-border/60 bg-background hover:bg-muted rounded-md w-[8rem] shadow-none focus:ring-0 font-semibold">
+                                        <SelectTrigger className="h-7 text-[12px] px-2.5 py-0 border border-border/60 bg-background hover:bg-muted rounded-md w-[8.5rem] shadow-none focus:ring-0 font-semibold">
                                           <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-xl border border-border bg-card">
-                                          <SelectItem value="TODO" className="rounded-lg text-[12px]">To Do</SelectItem>
-                                          <SelectItem value="IN_PROGRESS" className="rounded-lg text-[12px]">In Progress</SelectItem>
-                                          <SelectItem value="DONE" className="rounded-lg text-[12px]">Done</SelectItem>
+                                          <SelectItem value="TODO" className="rounded-lg text-[13px]">To Do</SelectItem>
+                                          <SelectItem value="IN_PROGRESS" className="rounded-lg text-[13px]">In Progress</SelectItem>
+                                          <SelectItem value="DONE" className="rounded-lg text-[13px]">Done</SelectItem>
                                         </SelectContent>
                                       </Select>
                                     </div>

@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "prebuild": "prisma generate",
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",

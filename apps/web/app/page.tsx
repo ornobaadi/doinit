@@ -44,6 +44,8 @@ import {
   Moon,
   Check,
   X as XIcon,
+  CaretLeft,
+  CaretRight,
 } from "@phosphor-icons/react"
 import { useTheme } from "next-themes"
 
@@ -169,6 +171,20 @@ export default function Page() {
   const [deleting, setDeleting] = useState(false)
 
   const { resolvedTheme, setTheme } = useTheme()
+
+  // Mobile horizontal swipe container refs and state
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [activeMobileCol, setActiveMobileCol] = useState(0)
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, clientWidth } = scrollContainerRef.current
+      if (clientWidth > 0) {
+        const index = Math.round(scrollLeft / clientWidth)
+        setActiveMobileCol(index)
+      }
+    }
+  }
 
   const fetchTasks = async () => {
     try {
@@ -535,7 +551,9 @@ export default function Page() {
                 columns={kanbanColumns}
                 data={kanbanData}
                 onDataChange={handleDataChange}
-                className="h-full gap-5 flex flex-col lg:flex-row"
+                scrollRef={scrollContainerRef}
+                onScroll={handleScroll}
+                className="h-full gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 lg:pb-0 lg:overflow-x-visible lg:snap-none auto-cols-[calc(100vw-2rem)] md:auto-cols-[calc(50vw-2rem)] lg:auto-cols-fr"
               >
                 {(column) => {
                   const colConfig = COLUMNS.find(c => c.id === column.id)!
@@ -566,7 +584,7 @@ export default function Page() {
                   return (
                     <KanbanBoard 
                       id={column.id} 
-                      className="h-full bg-muted border border-border shadow-sm flex flex-col rounded-xl"
+                      className="h-full bg-muted border border-border shadow-sm flex flex-col rounded-xl snap-center shrink-0 w-[calc(100vw-2rem)] md:w-[calc(50vw-2rem)] lg:w-full"
                     >
                       {/* Column Header */}
                       <KanbanHeader className="flex justify-between items-center py-3 border-b border-border bg-muted/90 px-3.5 select-none rounded-t-xl">
@@ -707,7 +725,37 @@ export default function Page() {
                                       <CalendarBlank className="size-3 shrink-0" />
                                       <span className="font-mono">{formatDate(item.createdAt as string)}</span>
                                     </div>
-                                    <div className="flex items-center shrink-0" onClick={e => e.stopPropagation()}>
+                                    <div className="flex items-center gap-1.5 shrink-0" onClick={e => e.stopPropagation()}>
+                                      {/* Mobile quick status buttons */}
+                                      <div className="flex lg:hidden items-center gap-1 mr-1">
+                                        {item.column !== "TODO" && (
+                                          <button
+                                            type="button"
+                                            onClick={() => {
+                                              const newStatus = item.column === "DONE" ? "IN_PROGRESS" : "TODO";
+                                              handleStatusChange(item.id, newStatus);
+                                            }}
+                                            className="size-6 rounded-md border border-border/60 flex items-center justify-center bg-background hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-90 cursor-pointer"
+                                            title="Move status back"
+                                          >
+                                            <CaretLeft className="size-3.5" weight="bold" />
+                                          </button>
+                                        )}
+                                        {item.column !== "DONE" && (
+                                          <button
+                                            type="button"
+                                            onClick={() => {
+                                              const newStatus = item.column === "TODO" ? "IN_PROGRESS" : "DONE";
+                                              handleStatusChange(item.id, newStatus);
+                                            }}
+                                            className="size-6 rounded-md border border-border/60 flex items-center justify-center bg-background hover:bg-muted text-muted-foreground hover:text-foreground transition-all active:scale-90 cursor-pointer"
+                                            title="Move status forward"
+                                          >
+                                            <CaretRight className="size-3.5" weight="bold" />
+                                          </button>
+                                        )}
+                                      </div>
+
                                       <Select 
                                         value={item.column} 
                                         onValueChange={(val: any) => handleStatusChange(item.id, val)}
@@ -733,6 +781,28 @@ export default function Page() {
                   )
                 }}
               </KanbanProvider>
+
+              {/* Mobile pagination indicator dots */}
+              <div className="flex lg:hidden justify-center items-center gap-2 mt-4 select-none">
+                {COLUMNS.map((col, idx) => (
+                  <button
+                    key={col.id}
+                    type="button"
+                    onClick={() => {
+                      if (scrollContainerRef.current) {
+                        scrollContainerRef.current.scrollTo({
+                          left: idx * scrollContainerRef.current.clientWidth,
+                          behavior: "smooth"
+                        })
+                      }
+                    }}
+                    className={`size-2.5 rounded-full transition-all duration-300 ${
+                      activeMobileCol === idx ? "bg-primary w-5" : "bg-border hover:bg-muted-foreground/30"
+                    }`}
+                    title={`Go to ${col.name}`}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </section>

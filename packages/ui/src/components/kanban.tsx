@@ -195,6 +195,8 @@ export type KanbanProviderProps<
   onDragStart?: (event: DragStartEvent) => void;
   onDragEnd?: (event: DragEndEvent) => void;
   onDragOver?: (event: DragOverEvent) => void;
+  scrollRef?: React.RefObject<HTMLDivElement | null>;
+  onScroll?: React.UIEventHandler<HTMLDivElement>;
 };
 
 export const KanbanProvider = <
@@ -209,6 +211,8 @@ export const KanbanProvider = <
   columns,
   data,
   onDataChange,
+  scrollRef,
+  onScroll,
   ...props
 }: KanbanProviderProps<T, C>) => {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
@@ -327,7 +331,11 @@ export const KanbanProvider = <
 
   if (!mounted) {
     return (
-      <div className={cn("grid size-full auto-cols-fr grid-flow-col gap-4", className)}>
+      <div 
+        ref={scrollRef}
+        onScroll={onScroll}
+        className={cn("grid size-full auto-cols-fr grid-flow-col gap-4", className)}
+      >
         {columns.map((column) => children(column))}
       </div>
     );
@@ -345,6 +353,8 @@ export const KanbanProvider = <
         {...props}
       >
         <div
+          ref={scrollRef}
+          onScroll={onScroll}
           className={cn(
             "grid size-full auto-cols-fr grid-flow-col gap-4",
             className

@@ -1,6 +1,13 @@
 # doinit.
 
-A modern, highly polished, real-time Kanban Task Manager built as part of the AWTOMATIG Full Stack Developer Intern Take-Home assignment. The application enables users to manage their daily workflows seamlessly by adding new tasks, viewing tasks organized in a dynamic three-column Kanban board, dragging and dropping tasks between columns to update their status (backed by optimistic UI rendering and real-time backend updates), and deleting tasks with secure confirmation modals.
+A premium, modern, real-time Kanban Task Manager built as part of the AWTOMATIG Full Stack Developer Intern Take-Home assignment. Governed by a custom design system (`.agents/design-system/MASTER.md`), the application features a gorgeous Electric Violet visual theme with high-fidelity Obsidian Midnight (dark mode) and Ice White (light mode) styling. 
+
+### Key Highlights
+- **Obsidian midnight & Ice White Theme:** Color palette defined in modern OKLCH color space for stunning visual depth and premium contrast.
+- **Workflow Analytics:** A sleek dashboard banner displaying real-time task volume ratios via a glowing completion progress bar.
+- **Enhanced Micro-Interactions:** Physics-based drag-and-drop animations, card lift-up translations, collapsible description details, and responsive scaling.
+- **Contextual Empty States:** Custom vector SVG graphics occupying empty columns to provide friendly, contextual actions instead of blank spaces.
+- **Refined Typography:** Built with optimized loading of `Plus Jakarta Sans` for soft, elegant interfaces, paired with `JetBrains Mono` for metadata numbers and counters.
 
 ## Tech Stack
 

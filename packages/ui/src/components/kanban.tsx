@@ -77,8 +77,8 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   return (
     <div
       className={cn(
-        "flex size-full min-h-40 flex-col divide-y overflow-hidden rounded-md border bg-secondary text-xs shadow-sm ring-2 transition-all",
-        isOver ? "ring-primary" : "ring-transparent",
+        "flex size-full min-h-40 flex-col overflow-hidden rounded-2xl border text-xs transition-all duration-300",
+        isOver ? "border-primary/60 ring-2 ring-primary/20 brightness-105" : "",
         className
       )}
       ref={setNodeRef}
@@ -119,7 +119,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
       <div style={style} {...listeners} {...attributes} ref={setNodeRef}>
         <Card
           className={cn(
-            "cursor-grab gap-4 rounded-md p-3 shadow-sm hover:shadow-md transition-shadow duration-200 border bg-card text-card-foreground",
+            "cursor-grab rounded-xl p-4 transition-all duration-200 border bg-card text-card-foreground card-shadow hover:border-border/90 active:cursor-grabbing",
             isDragging && "pointer-events-none cursor-grabbing opacity-30",
             className
           )}
@@ -131,7 +131,7 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
         <t.In>
           <Card
             className={cn(
-              "cursor-grab gap-4 rounded-md p-3 shadow-sm ring-2 ring-primary border bg-card text-card-foreground",
+              "cursor-grab rounded-xl p-4 ring-2 ring-primary/30 border bg-card/85 backdrop-blur-xs text-card-foreground cursor-grabbing shadow-lg",
               isDragging && "cursor-grabbing",
               className
             )}
@@ -148,11 +148,13 @@ export type KanbanCardsProps<T extends KanbanItemProps = KanbanItemProps> =
   Omit<HTMLAttributes<HTMLDivElement>, "children" | "id"> & {
     children: (item: T) => ReactNode;
     id: string;
+    footer?: ReactNode;
   };
 
 export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
   children,
   className,
+  footer,
   ...props
 }: KanbanCardsProps<T>) => {
   const { data } = useContext(KanbanContext) as KanbanContextProps<T>;
@@ -167,6 +169,7 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
           {...props}
         >
           {filteredData.map(children)}
+          {footer}
         </div>
       </SortableContext>
       <ScrollBar orientation="vertical" />
@@ -177,7 +180,7 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
 export type KanbanHeaderProps = HTMLAttributes<HTMLDivElement>;
 
 export const KanbanHeader = ({ className, ...props }: KanbanHeaderProps) => (
-  <div className={cn("m-0 p-3 font-semibold text-sm border-b bg-card", className)} {...props} />
+  <div className={cn("m-0 p-3 font-semibold text-sm border-b border-border/50", className)} {...props} />
 );
 
 export type KanbanProviderProps<

@@ -94,10 +94,12 @@ None of these require new backend concepts. They're presentation and resilience,
 
 ## 7. UI / Design Direction
 
-- Layout: a three-column board (To Do / In Progress / Done) is the most natural fit for this domain and reads as more thought-out than a flat list with a status dropdown, while still being simple to build. If time is tight, a single list with a status `Select` per row is the fallback and is equally acceptable per the brief.
-- Use shadcn/ui primitives: `Card` for tasks, `Dialog` for the add-task form, `Select` or `DropdownMenu` for status changes, `AlertDialog` for delete confirmation, `Badge` for status, `Skeleton` for loading states, `sonner` for toasts.
-- Keep visual styling restrained: one accent color, consistent spacing scale, no gradient-heavy or over-decorated UI. The brief's reviewer is checking for clean and functional, not visually loud.
-- Fully responsive down to mobile width, since reviewers may open the live link (if provided) on a phone.
+- **Visual Theme:** Premium Obsidian theme governed by the MASTER.md design system. Focuses on an Ice White theme for light mode and Obsidian Midnight theme for dark mode, using custom OKLCH color definitions.
+- **Accent Palette:** Electric Violet (`oklch(0.60 0.21 280)`) for active controls, hover-lifts, and focus markers. To-Do tasks are styled in soft slate-gray, In-Progress in warm amber, and Done in vibrant emerald.
+- **Layout & Ratio-bar:** A three-column grid layout (To Do / In Progress / Done). Complemented by a dashboard analytics widget displaying task volume ratios via a glowing completion progress bar.
+- **Typography:** `Plus Jakarta Sans` for primary typography to provide soft edges and high visual clarity. `JetBrains Mono` for metadata chips and numeric counts.
+- **Animations & Empty States:** Subtle micro-animations (hover transitions, card lift scales, drop indicators). Empty columns are occupied by unique SVG graphics offering contextual actions instead of blank voids.
+
 
 ## 8. README Requirements
 
